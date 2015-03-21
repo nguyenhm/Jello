@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Jello.Models.Board>
+
+@{
+    ViewBag.Title = "Board";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<div class="btn btn-default">@Html.ActionLink("Create Board", "CreateBoard", "Board")</div>
+
+<hr />
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 project-grid-item">
+            <h2>@item.Title</h2>
+            <p>@item.Description</p>
+            <p>Created by: @item.FullName</p>
+            <p>
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn" data-toggle="dropdown">
+                            Choose this Board
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("View Details", "Index", "List", new { boardid = @item.BoardID }, null)</li>
+                            <li>@Html.ActionLink("Edit Board", "EditBoard", "Board", new { boardid = @item.BoardID }, null)</li>
+                            <li>@Html.ActionLink("Close This Board", "closeBoard", "Board", new { boardid = @item.BoardID }, null)</li>
+                        </ul>
+                    </div>
+                </div>
+            </p>
+        </div><!-- /.span4 -->
+        <div class="col-md-1"></div>
+    }
+</div>

@@ -2,11 +2,9 @@
 
 @{var user = (User)Session["User"];}
 
-@if (user != null) {
-    
-           
+@if (user != null) {           
     <text>
-        Hello, @Html.ActionLink(user.FName, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+        Hello, @Html.ActionLink(user.FName +" "+ user.LName, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
         @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
             <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>

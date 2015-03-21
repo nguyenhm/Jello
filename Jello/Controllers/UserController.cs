@@ -48,7 +48,7 @@ namespace Jello.Controllers
                         var currentUser = _usersRepository.GetUserByEmail(model.Email);
                         //FormsAuthentication.SetAuthCookie(u.Username, false);
                         Session["User"] = currentUser;
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Board");
                     }
                     else
                     {
