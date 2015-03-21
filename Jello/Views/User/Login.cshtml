@@ -9,7 +9,11 @@
 </hgroup>
 
 <section id="loginForm">
-    <h2>Use a local account to log in.</h2>
+    @if (!ViewContext.ViewData.ModelState.IsValid && ViewContext.ViewData.ModelState["Error"] != null)
+    {
+        <h4> @String.Join(",", ViewContext.ViewData.ModelState["Error"].Errors.Select(x => x.ErrorMessage).ToList())</h4>
+    }
+    
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

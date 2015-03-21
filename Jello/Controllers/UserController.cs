@@ -37,15 +37,14 @@ namespace Jello.Controllers
 
             _usersRepository = new UserRepository();
             try
-            {
-                var isLoginValid = _usersRepository.IsLoginValid(model.Email, model.Password);
-                var currentUser = _usersRepository.GetUserByEmail(model.Email);
-
+            {               
                 if (ModelState.IsValid)
                 {
+                    var isLoginValid = _usersRepository.IsLoginValid(model.Email, model.Password);
                     if (isLoginValid)
                     {
-                        Session["UserID"] = currentUser.UserID;
+                        var currentUser = _usersRepository.GetUserByEmail(model.Email);
+                        Session["User"] = currentUser;
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -71,12 +70,10 @@ namespace Jello.Controllers
             var crypto = new SimpleCrypto.PBKDF2();
             var encryptPass = crypto.Compute(model.Password);
 
-            _usersRepository.CreateNewAccount(model.UserName, model.FirstName, model.LastName, model.Email, encryptPass, crypto.Salt);
-
-
             if(ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                _usersRepository.CreateNewAccount(model.UserName, model.FirstName, model.LastName, model.Email, encryptPass, crypto.Salt);
+                return RedirectToAction("Login", "User");
             }
             return View(model);
         }
