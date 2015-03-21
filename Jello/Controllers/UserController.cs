@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Jello.Models;
 using MvcApplication1.Services;
+using Microsoft.Web.WebPages.OAuth;
+using System.Web.Security;
 
 namespace Jello.Controllers
 {
@@ -44,8 +46,13 @@ namespace Jello.Controllers
                     if (isLoginValid)
                     {
                         var currentUser = _usersRepository.GetUserByEmail(model.Email);
+                        //FormsAuthentication.SetAuthCookie(u.Username, false);
                         Session["User"] = currentUser;
                         return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        throw new Exception("Incorrect Password");
                     }
                 }
             }
@@ -54,6 +61,13 @@ namespace Jello.Controllers
                 ModelState.AddModelError("Error", ex.Message);
             }
             return View(model);
+        }
+
+        public ActionResult LogOff()
+        {
+            Session.Abandon();
+            //FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -76,6 +90,14 @@ namespace Jello.Controllers
                 return RedirectToAction("Login", "User");
             }
             return View(model);
+        }
+
+        [AllowAnonymous]
+        [ChildActionOnly]
+        public ActionResult ExternalLoginList(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return PartialView("_ExternalLoginListPartial", OAuthWebSecurity.RegisteredClientData);
         }
 
     }
