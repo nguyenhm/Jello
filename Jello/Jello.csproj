@@ -327,6 +327,7 @@
     <Content Include="Views\Board\CreateBoard.cshtml" />
     <Content Include="Views\List\Index.cshtml" />
     <Content Include="Views\List\CreateList.cshtml" />
+    <Content Include="Views\Board\EditBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

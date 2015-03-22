@@ -54,5 +54,25 @@ namespace Jello.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult EditBoard()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditBoard(EditBoardModel model)
+        {
+            _boardRepository = new BoardRepository();
+            int boardID = Convert.ToInt32(Request["boardID"]);
+
+            if(ModelState.IsValid)
+            {
+                _boardRepository.UpdateBoardByBoardID(boardID, model.Title, model.Description, model.IsPublic);
+                return RedirectToAction("Index", "Board");
+            }
+            return View(model);
+        }
+
     }
 }

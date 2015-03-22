@@ -75,6 +75,27 @@ namespace Jello.Repositories
             }
         }
 
+        public void UpdateBoardByBoardID(int boardID, string title, string description, bool isPublic)
+        {
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "BoardUpdateByBoardID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@BoardID", boardID);
+                command.Parameters.AddWithValue("@Title", title);
+                command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@isPublic", isPublic);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         private Board FillModel(IDataReader dr)
         {
             var board = new Board

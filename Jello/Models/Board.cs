@@ -32,4 +32,20 @@ namespace Jello.Models
         [Display(Name = "IsPublic")]
         public bool IsPublic { get; set; }
     }
+
+    public class EditBoardModel
+    {
+        public int BoardID { get; set; }
+
+        [Required]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
+        [Display(Name = "IsPublic")]
+        public bool IsPublic { get; set; }
+    }
 }
