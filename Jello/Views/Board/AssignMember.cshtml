@@ -1,0 +1,48 @@
+﻿@model Jello.Models.User
+
+@{
+    ViewBag.Title = "Assign Member";
+}
+
+<h2>ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        <table style="margin:0 auto; width:250px;">
+            <tr>
+                <td>
+                    Member:
+                </td>
+                <td>
+                    @Html.DropDownList("NonMemberList", (SelectList)ViewBag.NonMemberList, "Select a Member")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Role:
+                </td>
+                <td>
+                    @Html.DropDownList("RoleList", (SelectList)ViewBag.RoleList, "Select a Role")
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    @*<div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">*@
+                    <input type="submit" value="Assign" class="btn btn-default" />
+                    @*</div>
+                        </div>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "List", new { boardid = Request["BoardID"] }, null)
+</div>

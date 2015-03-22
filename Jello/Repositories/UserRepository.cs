@@ -40,6 +40,31 @@ namespace Jello.Repositories
             return users;
         }
 
+        public List<Role> GetAllRole()
+        {
+            List<Role> roles = new List<Role>();
+
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "RoleGetAll",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                connection.Open();
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        roles.Add(FillRoleModel(dr));
+                    }
+                }
+            }
+            return roles;
+        }
+
         public List<User> GetBoardMemberByBoardID(int boardID)
         {
             List<User> boardMembers = new List<User>();
@@ -185,6 +210,16 @@ namespace Jello.Repositories
                 FullName = (string)dr["FullName"]
             };
             return boardMembers;
+        }
+
+        private Role FillRoleModel(IDataReader dr)
+        {
+            var role = new Role
+            {
+                RoleID = (int)dr["RoleID"],
+                RoleDescription = (string)dr["RoleDesciption"]
+            };
+            return role;
         }
     }
 }

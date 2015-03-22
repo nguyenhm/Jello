@@ -101,5 +101,32 @@ namespace Jello.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult AssignMember()
+        {
+            _userRepository = new UserRepository();
+            int boardID = Convert.ToInt32(Request["boardID"]);
+
+            List<SelectListItem> NonMemberList = _userRepository.GetNonMemberByBoardID(boardID).AsEnumerable().Select(row => new SelectListItem
+            {
+                Value = row.UserID.ToString(),
+                Text = row.FName +" "+ row.LName
+            }).ToList();
+
+            List<SelectListItem> RoleList = _userRepository.GetAllRole().AsEnumerable().Select(row => new SelectListItem
+            {
+                Value = row.RoleID.ToString(),
+                Text = row.RoleDescription
+            }).ToList();
+
+            SelectList sl = new SelectList(NonMemberList, "Value", "Text");
+            ViewBag.NonMemberList = sl;
+
+            SelectList slR = new SelectList(RoleList, "Value", "Text");
+            ViewBag.RoleList = slR;
+
+            return View();
+        }
+
     }
 }

@@ -77,4 +77,15 @@ namespace Jello.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class Role
+    {
+        public Role()
+        {
+
+        }
+
+        public int RoleID { get; set; }
+        public string RoleDescription { get; set; }
+    }
 }
