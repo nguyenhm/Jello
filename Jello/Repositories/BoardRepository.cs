@@ -96,6 +96,24 @@ namespace Jello.Repositories
             }
         }
 
+        public void DeleteBoardByBoardID(int boardID)
+        {
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "BoardDeleteByBoardID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@BoardID", boardID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         private Board FillModel(IDataReader dr)
         {
             var board = new Board

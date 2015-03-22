@@ -74,5 +74,14 @@ namespace Jello.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult CloseBoard()
+        {
+            _boardRepository = new BoardRepository();
+            int boardID = Convert.ToInt32(Request["boardID"]);
+            _boardRepository.DeleteBoardByBoardID(boardID);
+            return RedirectToAction("Index", "Board");
+        }
+
     }
 }
