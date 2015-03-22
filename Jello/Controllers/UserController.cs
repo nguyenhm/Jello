@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Jello.Models;
-using MvcApplication1.Services;
 using Microsoft.Web.WebPages.OAuth;
 using System.Web.Security;
+using Jello.Repositories;
 
 namespace Jello.Controllers
 {

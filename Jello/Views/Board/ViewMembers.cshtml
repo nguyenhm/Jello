@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Jello.Models.User>
+
+@{
+    ViewBag.Title = "Board Member";
+}
+
+<h2>ViewBag.Title</h2>
+
+<br />
+
+<h2 style="text-align:center;">View Members</h2>
+
+<br />
+
+@Html.ActionLink("Add Member", "AssignMember", "Board", new { boardid = Request["BoardID"] }, null)
+
+<br /><br />
+
+<table class="table">
+    <tr>
+        <th>
+            Member       
+        </th>
+        <th>
+            Role
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleDescription)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "EditMember", new { boardID = item.BoardID, userID = item.UserID }) |*@
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Remove", "RemoveMember", new { boardID = item.BoardID, userID = item.UserID }, new { onclick = "return confirm('Are you sure to remove this member');" })
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Back To List", "Index", "List", new { boardid = Request["BoardID"] }, null)

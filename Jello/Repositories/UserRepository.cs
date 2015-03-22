@@ -7,13 +7,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace MvcApplication1.Services
+namespace Jello.Repositories
 {
     public class UserRepository
     {
         string _connStr = ConfigurationManager.ConnectionStrings["JelloConnectionString"].ConnectionString;
 
-        public List<User> GetAllUser(int boardID)
+        public List<User> GetNonMemberByBoardID(int boardID)
         {
             List<User> users = new List<User>();
 
@@ -22,7 +22,7 @@ namespace MvcApplication1.Services
                 var command = new SqlCommand
                 {
                     Connection = connection,
-                    CommandText = "UserGetAll",
+                    CommandText = "NonMemberGetByBoardID",
                     CommandType = CommandType.StoredProcedure
                 };
 
@@ -40,6 +40,32 @@ namespace MvcApplication1.Services
             return users;
         }
 
+        public List<User> GetBoardMemberByBoardID(int boardID)
+        {
+            List<User> boardMembers = new List<User>();
+
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "BoardMemberGetByBoardID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.Add("@BoardID", SqlDbType.Int).Value = boardID;
+
+                connection.Open();
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        boardMembers.Add(FillBoardMemberModel(dr));
+                    }
+                }
+            }
+            return boardMembers;
+        }
 
         public bool IsLoginValid(string email, string password)
         {
@@ -82,9 +108,6 @@ namespace MvcApplication1.Services
             {
                 throw new Exception("Failed to connect to the Database");
             }
-
-
-
             return isLoginValid;
         }
 
@@ -149,8 +172,19 @@ namespace MvcApplication1.Services
                 Password = (string)dr["Password"],
                 Salt = (string)dr["Salt"]
             };
-
             return user;
+        }
+
+        private User FillBoardMemberModel(IDataReader dr)
+        {
+            var boardMembers = new User
+            {
+                BoardID = (int)dr["BoardID"],
+                UserID = (int)dr["UserID"],
+                RoleDescription = (string)dr["RoleDesciption"],
+                FullName = (string)dr["FullName"]
+            };
+            return boardMembers;
         }
     }
 }

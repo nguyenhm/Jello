@@ -14,7 +14,9 @@ namespace Jello.Controllers
         // GET: /Board/
 
         BoardRepository _boardRepository;
+        UserRepository _userRepository;
 
+        [HttpGet]
         public ActionResult Index()
         {
             _boardRepository = new BoardRepository();
@@ -81,6 +83,22 @@ namespace Jello.Controllers
             int boardID = Convert.ToInt32(Request["boardID"]);
             _boardRepository.DeleteBoardByBoardID(boardID);
             return RedirectToAction("Index", "Board");
+        }
+
+        [HttpGet]
+        public ActionResult ViewMembers()
+        {
+            _userRepository = new UserRepository();
+            int boardID = Convert.ToInt32(Session["BoardID"]);
+
+            var model = _userRepository.GetBoardMemberByBoardID(boardID).AsEnumerable().Select(row => new User
+            {
+                BoardID = row.BoardID,
+                RoleID = row.RoleID,
+                RoleDescription = row.RoleDescription,
+                FullName = row.FullName
+            }).ToList();
+            return View(model);
         }
 
     }

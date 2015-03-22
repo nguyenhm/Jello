@@ -28,7 +28,12 @@ namespace Jello.Models
         public string LName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Salt { get; set; } 
+        public string Salt { get; set; }
+
+        public int BoardID { get; set; }
+        public int RoleID { get; set; }
+        public string RoleDescription { get; set; }
+        public string FullName { get; set; }
     }
 
     public class UserModel

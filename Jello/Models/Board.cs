@@ -48,4 +48,26 @@ namespace Jello.Models
         [Display(Name = "IsPublic")]
         public bool IsPublic { get; set; }
     }
+
+    //public class BoardMember
+    //{
+    //    public BoardMember()
+    //    {
+    //    }
+
+    //    public BoardMember(int boardID, int userID)
+    //    {
+    //        BoardID = boardID;
+    //        UserID = userID;
+    //    }
+
+    //    public int BoardID { get; set; }
+    //    [Required]
+    //    public int UserID { get; set; }
+    //    [Required]
+    //    public int RoleID { get; set; }
+    //    public string RoleDescription { get; set; }
+    //    public string FullName { get; set; }
+
+    //}
 }
