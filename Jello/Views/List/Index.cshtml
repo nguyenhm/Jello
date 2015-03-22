@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Jello.Models.List>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<div class="btn btn-default">@Html.ActionLink("Create List", "CreateList", "List")</div>
+
+<hr />
+
+@{
+    ViewBag.Title = ViewBag.BoardName;
+}
+
+<br />
+<h2> @ViewBag.BoardName </h2>
+<br />
+<div class="btn btn-default">@Html.ActionLink("Members", "ViewMembers", "Board", new { boardid = Request["BoardID"] }, null)</div>
+<hr />
+
+<table>
+    <tr>
+        <td>
+            <button class="btn btn-group btn-block" data-toggle="modal" data-target="#myModal">
+                Create List
+            </button>
+            @{
+                var newList = new Jello.Models.List();
+                newList.BoardID = Convert.ToInt32(Request["boardID"]);
+                int a = newList.BoardID;
+                Session["BoardID"] = a;
+            }
+            @*@Html.Partial("_CreateList", newList)*@
+        </td>
+    </tr>
+</table>
+@{
+    int i = 0;
+}
+@foreach (var item in Model)
+{
+    <table style="float:left" class="col-md-2">
+        <tr class="btn-info">
+            <th>
+                @item.Title
+            </th>
+            <td style="float:right">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+
+                            <li>@Html.ActionLink("Add Card", "CreateCard", "Card", new { listid = @item.ListID, boardid = Request["BoardID"] }, null)</li>
+                            <li>@Html.ActionLink("Archived", "archiveList", "List", new { listid = @item.ListID, boardid = Request["BoardID"] }, null)</li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <ul id="@item.ListID" class="dropIsTrue" listid="@item.ListID">
+                    &nbsp;
+                    @*@foreach (var card in item.CardList)
+                    {
+                        <li class="project-grid-item" data-toggle="modal" data-target="#@card.CardID" style="width: 150px" cardid="@card.CardID">
+                            @card.Description
+                            @if (@card.WorkerName != null)
+                            { <hr /> }
+                            <span style="color:rgb(158, 98, 98); float:right;"> @card.WorkerName </span>  <br />
+                        </li>
+                        @Html.Partial("~/Views/Card/_EditCard.cshtml", card)
+
+                    }*@
+                </ul>
+            </td>
+        </tr>
+    </table>
+                    i++;
+                    if (i % 4 == 0)
+                    {
+                        <br /><div style="clear:both;"></div>
+                    }
+
+}
+
+<div style="clear:both;"></div>

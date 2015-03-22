@@ -22,10 +22,6 @@
             <p>
                 <div class="btn-group">
                     <div class="btn-group">
-                        <button type="button" class="btn" data-toggle="dropdown">
-                            Choose this Board
-                            <span class="caret"></span>
-                        </button>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("View Details", "Index", "List", new { boardid = @item.BoardID }, null)</li>
                             <li>@Html.ActionLink("Edit Board", "EditBoard", "Board", new { boardid = @item.BoardID }, null)</li>
