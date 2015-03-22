@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -20,5 +21,14 @@ namespace Jello.Models
         public DateTime CreationDate { get; set; }
         public bool IsArchived { get; set; }
         //public ICollection<Card> CardList { get; set; }
+    }
+
+    public class CreateListModel
+    {
+        [Required]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        public int BoardID { get; set; }
     }
 }

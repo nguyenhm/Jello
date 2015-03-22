@@ -29,5 +29,36 @@ namespace Jello.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult CreateList()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateList(CreateListModel model)
+        {
+            _listRepository = new ListRepository();
+            var user = (User)Session["User"];
+
+            if(ModelState.IsValid)
+            {
+                int boardID = Convert.ToInt32(Session["BoardID"]);
+                string title = model.Title;
+                int screenPosition = _listRepository.GetListNumber(boardID);
+                int creatorID = user.UserID;
+                bool isArchived = false;
+                DateTime creationDate = System.DateTime.Now;
+
+                _listRepository.CreateNewList(boardID, title, screenPosition, creatorID, isArchived, creationDate);
+
+                return RedirectToAction("Index", "List", new { boardid = boardID });
+            }
+
+
+            return View(model);
+
+        }
+
     }
 }

@@ -63,6 +63,27 @@ namespace Jello.Repositories
             }
         }
 
+        public int GetListNumber(int boardID)
+        {
+            int numList;
+
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "ListNumberGetByBoardID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.Add("@BoardID", SqlDbType.Int).Value = boardID;
+
+                connection.Open();
+                numList = Convert.ToInt32(command.ExecuteScalar()) + 1;
+                return numList;
+            }
+        }
+
         private List FillModel(IDataReader dr)
         {
             var list = new List

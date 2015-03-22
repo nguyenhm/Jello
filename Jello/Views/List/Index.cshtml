@@ -29,12 +29,12 @@
                 Create List
             </button>
             @{
-                var newList = new Jello.Models.List();
+                var newList = new Jello.Models.CreateListModel();
                 newList.BoardID = Convert.ToInt32(Request["boardID"]);
                 int a = newList.BoardID;
                 Session["BoardID"] = a;
             }
-            @*@Html.Partial("_CreateList", newList)*@
+            @*@Html.Partial("CreateList", newList)*@
         </td>
     </tr>
 </table>
