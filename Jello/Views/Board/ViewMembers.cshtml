@@ -4,7 +4,7 @@
     ViewBag.Title = "Board Member";
 }
 
-<h2>ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
 <br />
 
@@ -13,7 +13,7 @@
 <br />
 
 @Html.ActionLink("Add Member", "AssignMember", "Board", new { boardid = Request["BoardID"] }, null)
-
+<hr />
 <br /><br />
 
 <table class="table">

@@ -88,10 +88,10 @@ namespace Jello.Controllers
         [HttpGet]
         public ActionResult ViewMembers()
         {
-            _userRepository = new UserRepository();
+            _boardRepository = new BoardRepository();
             int boardID = Convert.ToInt32(Session["BoardID"]);
 
-            var model = _userRepository.GetBoardMemberByBoardID(boardID).AsEnumerable().Select(row => new User
+            var model = _boardRepository.GetBoardMemberByBoardID(boardID).AsEnumerable().Select(row => new User
             {
                 BoardID = row.BoardID,
                 RoleID = row.RoleID,
@@ -105,6 +105,8 @@ namespace Jello.Controllers
         public ActionResult AssignMember()
         {
             _userRepository = new UserRepository();
+            _boardRepository = new BoardRepository();
+
             int boardID = Convert.ToInt32(Request["boardID"]);
 
             List<SelectListItem> NonMemberList = _userRepository.GetNonMemberByBoardID(boardID).AsEnumerable().Select(row => new SelectListItem
@@ -113,7 +115,7 @@ namespace Jello.Controllers
                 Text = row.FName +" "+ row.LName
             }).ToList();
 
-            List<SelectListItem> RoleList = _userRepository.GetAllRole().AsEnumerable().Select(row => new SelectListItem
+            List<SelectListItem> RoleList = _boardRepository.GetAllRole().AsEnumerable().Select(row => new SelectListItem
             {
                 Value = row.RoleID.ToString(),
                 Text = row.RoleDescription
