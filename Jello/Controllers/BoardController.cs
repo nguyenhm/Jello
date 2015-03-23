@@ -91,8 +91,9 @@ namespace Jello.Controllers
             _boardRepository = new BoardRepository();
             int boardID = Convert.ToInt32(Session["BoardID"]);
 
-            var model = _boardRepository.GetBoardMemberByBoardID(boardID).AsEnumerable().Select(row => new User
+            var model = _boardRepository.GetBoardMemberByBoardID(boardID).AsEnumerable().Select(row => new BoardMember
             {
+                UserID = row.UserID,
                 BoardID = row.BoardID,
                 RoleID = row.RoleID,
                 RoleDescription = row.RoleDescription,
@@ -172,6 +173,16 @@ namespace Jello.Controllers
             ViewBag.RoleList = slR;
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveMember()
+        {
+            _boardRepository = new BoardRepository();
+            int boardID = Convert.ToInt32(Request["boardID"]);
+            int userID = Convert.ToInt32(Request["userID"]);
+            _boardRepository.RemoveMemberByBoardIDUserID(boardID, userID);
+            return RedirectToAction("ViewMembers", "Board", new { boardid = Request["BoardID"] });
         }
 
     }

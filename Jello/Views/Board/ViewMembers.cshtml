@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Jello.Models.User>
+﻿@model IEnumerable<Jello.Models.BoardMember>
 
 @{
     ViewBag.Title = "Board Member";
@@ -39,7 +39,7 @@
             <td>
                 @*@Html.ActionLink("Edit", "EditMember", new { boardID = item.BoardID, userID = item.UserID }) |*@
                 @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink("Remove", "RemoveMember", new { boardID = item.BoardID, userID = item.UserID }, new { onclick = "return confirm('Are you sure to remove this member');" })
+                @Html.ActionLink("Remove", "RemoveMember", "Board", new { boardID = item.BoardID, userID = item.UserID }, new { onclick = "return confirm('Are you sure to remove this member');" })
             </td>
         </tr>
     }

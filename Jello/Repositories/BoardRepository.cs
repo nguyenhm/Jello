@@ -113,6 +113,26 @@ namespace Jello.Repositories
                 command.ExecuteNonQuery();
             }
         }
+
+        public void RemoveMemberByBoardIDUserID(int boardID, int userID)
+        {
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "MemberRemoveByBoardIDUserID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("@BoardID", boardID);
+                command.Parameters.AddWithValue("@UserID", userID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         public List<User> GetBoardMemberByBoardID(int boardID)
         {
             List<User> boardMembers = new List<User>();
