@@ -10,7 +10,6 @@ namespace Jello.Models
     {
         public Card()
         {
-            WorkerName = "";
         }
         public int BoardID { get; set; }
         public int CardID { get; set; }
@@ -19,13 +18,18 @@ namespace Jello.Models
 
         [Required]
         public string Description { get; set; }
-        public string WorkerName { get; set; }
         public string CreatorName { get; set; }
 
         public int Priority { get; set; }
         public int CreatorID { get; set; }
-        public int WorkerID { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+    }
+
+    public class CreateCardModel
+    {
+        [Required]
+        [Display(Name = "Description")]
+        public string Description { get; set; }
     }
 }

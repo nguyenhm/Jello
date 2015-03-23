@@ -20,7 +20,7 @@ namespace Jello.Models
         public int CreatorID { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsArchived { get; set; }
-        //public ICollection<Card> CardList { get; set; }
+        public ICollection<Card> CardList { get; set; }
     }
 
     public class CreateListModel

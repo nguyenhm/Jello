@@ -11,6 +11,7 @@ namespace Jello.Controllers
     public class ListController : Controller
     {
         ListRepository _listRepository;
+        CardRepository _cardRepository;
 
         //
         // GET: /List/
@@ -19,6 +20,7 @@ namespace Jello.Controllers
         public ActionResult Index(int boardID)
         {
             _listRepository = new ListRepository();
+            _cardRepository = new CardRepository();
 
             boardID = Convert.ToInt32(Request["boardID"]);
             Session["BoardID"] = boardID;
@@ -27,7 +29,16 @@ namespace Jello.Controllers
             {
                 ListID = row.ListID,
                 Title = row.Title,
-                CreationDate = row.CreationDate
+                CreationDate = row.CreationDate,
+                CardList = _cardRepository.GetCardByListID(row.ListID).AsEnumerable().Select(rowCard => new Card
+                {
+                    CardID = rowCard.CardID,
+                    BoardID = boardID,
+                    CreatorName = rowCard.CreatorName,
+                    Description = rowCard.Description,
+                    CreationDate = rowCard.CreationDate,
+                    UpdatedDate = rowCard.UpdatedDate                    
+                }).ToList()
             }).ToList();
             return View(model);
         }

@@ -67,17 +67,17 @@
             <td>
                 <ul id="@item.ListID" class="dropIsTrue" listid="@item.ListID">
                     &nbsp;
-                    @*@foreach (var card in item.CardList)
+                    @foreach (var card in item.CardList)
                     {
                         <li class="project-grid-item" data-toggle="modal" data-target="#@card.CardID" style="width: 150px" cardid="@card.CardID">
                             @card.Description
-                            @if (@card.WorkerName != null)
+                            @*@if (@card.WorkerName != null)
                             { <hr /> }
-                            <span style="color:rgb(158, 98, 98); float:right;"> @card.WorkerName </span>  <br />
+                            <span style="color:rgb(158, 98, 98); float:right;"> @card.WorkerName </span>  <br />*@
                         </li>
-                        @Html.Partial("~/Views/Card/_EditCard.cshtml", card)
+                        @*@Html.Partial("~/Views/Card/_EditCard.cshtml", card)*@
 
-                    }*@
+                    }
                 </ul>
             </td>
         </tr>
