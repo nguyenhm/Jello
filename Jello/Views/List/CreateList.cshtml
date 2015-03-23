@@ -33,7 +33,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", "List")
+    @Html.ActionLink("Back to List", "Index", "List", new { boardid = Convert.ToInt32(Session["BoardID"]) }, null)
 </div>
 
 @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
