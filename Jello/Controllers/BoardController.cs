@@ -130,5 +130,49 @@ namespace Jello.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AssignMember(AssignMemberModel model, FormCollection form)
+        {
+            int boardID = Convert.ToInt32(Request["boardID"]);
+            _boardRepository = new BoardRepository();
+            _userRepository = new UserRepository();
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    model.UserID = Convert.ToInt32(form["NonMemberList"]);
+                    model.RoleID = Convert.ToInt32(form["RoleList"]);
+                    _boardRepository.AssignMember(boardID, model.UserID, model.RoleID);
+                    return RedirectToAction("ViewMembers", "Board", new { boardid = boardID });
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("Error", "Please select a Member and assign Role");
+            }
+            
+
+            List<SelectListItem> NonMemberList = _userRepository.GetNonMemberByBoardID(boardID).AsEnumerable().Select(row => new SelectListItem
+            {
+                Value = row.UserID.ToString(),
+                Text = row.FName + " " + row.LName
+            }).ToList();
+
+            List<SelectListItem> RoleList = _boardRepository.GetAllRole().AsEnumerable().Select(row => new SelectListItem
+            {
+                Value = row.RoleID.ToString(),
+                Text = row.RoleDescription
+            }).ToList();
+
+            SelectList sl = new SelectList(NonMemberList, "Value", "Text");
+            ViewBag.NonMemberList = sl;
+
+            SelectList slR = new SelectList(RoleList, "Value", "Text");
+            ViewBag.RoleList = slR;
+
+            return View(model);
+        }
+
     }
 }

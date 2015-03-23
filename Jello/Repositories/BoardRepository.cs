@@ -165,6 +165,26 @@ namespace Jello.Repositories
             return roles;
         }
 
+        public void AssignMember(int boardID, int userID, int roleID)
+        {
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "MemberAssignment",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("BoardID", boardID);
+                command.Parameters.AddWithValue("UserID", userID);
+                command.Parameters.AddWithValue("RoleID", roleID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         private Board FillModel(IDataReader dr)
         {
             var board = new Board

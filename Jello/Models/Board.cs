@@ -49,6 +49,19 @@ namespace Jello.Models
         public bool IsPublic { get; set; }
     }
 
+    public class AssignMemberModel 
+    {
+        public int Board { get; set; }
+
+        [Required]
+        [Display(Name = "UserID")]
+        public int UserID { get; set; }
+
+        [Required]
+        [Display(Name = "RoleID")]
+        public int RoleID { get; set; }
+    }
+
     public class BoardMember
     {
         public BoardMember()

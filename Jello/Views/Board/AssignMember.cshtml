@@ -1,4 +1,4 @@
-﻿@model Jello.Models.User
+﻿@model Jello.Models.AssignMemberModel
 
 @{
     ViewBag.Title = "Assign Member";
@@ -11,6 +11,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
+        @if (!ViewContext.ViewData.ModelState.IsValid && ViewContext.ViewData.ModelState["Error"] != null)
+        {
+            <h4 style="text-align:center; color:red"> @String.Join(",", ViewContext.ViewData.ModelState["Error"].Errors.Select(x => x.ErrorMessage).ToList())</h4>
+        }
+
         <hr />
         @Html.ValidationSummary(true)
         <table style="margin:0 auto; width:250px;">
@@ -19,7 +24,7 @@
                     Member:
                 </td>
                 <td>
-                    @Html.DropDownList("NonMemberList", (SelectList)ViewBag.NonMemberList, "Select a Member")
+                    @Html.DropDownList("NonMemberList", (IEnumerable<SelectListItem>)ViewBag.NonMemberList, "Select a Member")
                 </td>
             </tr>
             <tr>
@@ -27,7 +32,7 @@
                     Role:
                 </td>
                 <td>
-                    @Html.DropDownList("RoleList", (SelectList)ViewBag.RoleList, "Select a Role")
+                    @Html.DropDownList("RoleList", (IEnumerable<SelectListItem>)ViewBag.RoleList, "Select a Role")
                 </td>
             </tr>
             <tr>
