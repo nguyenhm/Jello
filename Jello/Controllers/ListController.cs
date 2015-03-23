@@ -20,6 +20,9 @@ namespace Jello.Controllers
         {
             _listRepository = new ListRepository();
 
+            boardID = Convert.ToInt32(Request["boardID"]);
+            Session["BoardID"] = boardID;
+
             var model = _listRepository.GetNonArchivedList(boardID).AsEnumerable().Select(row => new List
             {
                 ListID = row.ListID,

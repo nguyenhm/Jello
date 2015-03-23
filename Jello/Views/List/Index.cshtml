@@ -28,12 +28,12 @@
             <button class="btn btn-group btn-block" data-toggle="modal" data-target="#myModal">
                 Create List
             </button>
-            @{
+            @*@{
                 var newList = new Jello.Models.CreateListModel();
                 newList.BoardID = Convert.ToInt32(Request["boardID"]);
                 int a = newList.BoardID;
                 Session["BoardID"] = a;
-            }
+            }*@
             @*@Html.Partial("CreateList", newList)*@
         </td>
     </tr>
