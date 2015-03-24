@@ -50,8 +50,8 @@ namespace Jello.Controllers
 
             if(ModelState.IsValid)
             {
-                _boardRepository.CreateNewBoard(model.Title, model.Description, user.UserID, model.IsPublic);
-                return RedirectToAction("Index", "Board");
+                int boardID = _boardRepository.CreateNewBoard(model.Title, model.Description, user.UserID, model.IsPublic);
+                return RedirectToAction("Index", "List", new { boardid = boardID});
             }
             return View(model);
         }

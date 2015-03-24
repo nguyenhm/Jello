@@ -40,7 +40,7 @@ namespace Jello.Repositories
             return boards;
         }
 
-        public void CreateNewBoard(string title, string descrition, int creatorID, bool isPublic)
+        public int CreateNewBoard(string title, string descrition, int creatorID, bool isPublic)
         {
             int boardID;
 
@@ -73,6 +73,8 @@ namespace Jello.Repositories
                     _listRepository.CreateNewList(boardID, listTitle, screenPosition, creatorID, isArchived, creationDate);
                 }
             }
+
+            return boardID;
         }
 
         public void UpdateBoardByBoardID(int boardID, string title, string description, bool isPublic)
