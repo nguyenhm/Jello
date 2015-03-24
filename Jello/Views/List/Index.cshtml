@@ -56,8 +56,8 @@
                         </button>
                         <ul class="dropdown-menu">
 
-                            <li>@Html.ActionLink("Add Card", "CreateCard", "Card", new { listid = @item.ListID, boardid = Request["BoardID"] }, null)</li>
-                            <li>@Html.ActionLink("Archived", "archiveList", "List", new { listid = @item.ListID, boardid = Request["BoardID"] }, null)</li>
+                            <li>@Html.ActionLink("Add Card", "CreateCard", "Card", new { listid = @item.ListID, boardID = @item.BoardID }, null)</li>
+                            <li>@Html.ActionLink("Archive List", "ArchiveList", "List", new { boardID = @item.BoardID, listID = item.ListID }, new { onclick = "return confirm('Are you sure to archive this list');" })</li>
                         </ul>
                     </div>
                 </div>

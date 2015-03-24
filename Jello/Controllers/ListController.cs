@@ -27,6 +27,7 @@ namespace Jello.Controllers
 
             var model = _listRepository.GetNonArchivedList(boardID).AsEnumerable().Select(row => new List
             {
+                BoardID = row.BoardID,
                 ListID = row.ListID,
                 Title = row.Title,
                 CreationDate = row.CreationDate,
@@ -68,10 +69,15 @@ namespace Jello.Controllers
 
                 return RedirectToAction("Index", "List", new { boardid = boardID });
             }
-
-
             return View(model);
+        }
 
+        [HttpGet]
+        public ActionResult ArchiveList(int listID, int boardID)
+        {
+            _listRepository = new ListRepository();
+            _listRepository.ArchiveListByListID(listID);
+            return RedirectToAction("Index", "List", new { boardid = boardID });
         }
 
     }

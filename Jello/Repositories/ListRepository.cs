@@ -84,10 +84,29 @@ namespace Jello.Repositories
             }
         }
 
+        public void ArchiveListByListID(int listID)
+        {
+            using(var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "ListArchiveByListID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.Add("@ListID", SqlDbType.Int).Value = listID;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         private List FillModel(IDataReader dr)
         {
             var list = new List
             {
+                BoardID = (int)dr["BoardID"],
                 ListID = (int)dr["ListID"],
                 Title = dr["Title"] != DBNull.Value ? dr["Title"].ToString() : null,
                 CreationDate = dr["CreationDate"] != DBNull.Value ? (DateTime)dr["CreationDate"] : DateTime.MinValue
