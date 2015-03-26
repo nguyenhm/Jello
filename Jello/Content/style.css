@@ -286,7 +286,7 @@ text-align: center;
     margin:10px Auto;
     width:900px;
     position:relative;
-    overflow:auto; 
+    overflow:hidden;
 }
 
 .createBoardWrap .createBoardContent
@@ -434,8 +434,20 @@ text-align: center;
 {
     width: 1200px;
     position:relative;
-    overflow:auto; 
+    overflow:hidden;
     margin: 10px auto;
+}
+
+.listWrap h2
+{
+    font-size: 40px;
+    color: blue;
+    padding-bottom: 10px;
+}
+
+.listWrap h2:hover
+{
+    color: red;
 }
 
 .listContent

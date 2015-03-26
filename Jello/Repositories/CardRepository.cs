@@ -40,7 +40,7 @@ namespace Jello.Repositories
             return cards;
         }
 
-        public void CreateNewCard(int listID, string description, int creatorID, DateTime creationDate, DateTime updatedDate)
+        public void CreateNewCard(int listID, string description, int creatorID, DateTime creationDate, DateTime updatedDate, int boardID)
         {
             using (var connection = new SqlConnection(_connStr))
             {
@@ -56,6 +56,7 @@ namespace Jello.Repositories
                 command.Parameters.AddWithValue("CreatorID", creatorID);
                 command.Parameters.AddWithValue("CreationDate", creationDate);
                 command.Parameters.AddWithValue("UpdatedDate", updatedDate);
+                command.Parameters.AddWithValue("BoardID", boardID);
 
                 connection.Open();
                 command.ExecuteNonQuery();

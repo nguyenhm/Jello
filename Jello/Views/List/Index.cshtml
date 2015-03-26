@@ -47,7 +47,8 @@
 
 
 <div class="listWrap">
-    <a href='@Url.Action("EditBoard", "Board", new { boardid = @board.BoardID }, null)'>@board.Title</a>
+    <h2><a href='@Url.Action("EditBoard", "Board", new { boardid = @board.BoardID }, null)'>@board.Title</a></h2>
+    <h4>@board.Description</h4>
 
     <br />
     <div class="btn btn-default"></div>
@@ -82,7 +83,6 @@
                 <li>@Html.ActionLink("Members", "ViewMembers", "Board", new { boardid = Request["BoardID"] }, null)</li>
                 <li>@Html.ActionLink("Close Board", "CloseBoard", "Board", new { boardid = @board.BoardID }, new { onclick = "return confirm('Are you sure to close this board');" })</li>
             </ul>
-            
         </a>
     </div>
 

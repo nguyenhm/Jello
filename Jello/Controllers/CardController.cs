@@ -38,9 +38,10 @@ namespace Jello.Controllers
                 int listID = Convert.ToInt32(Request["listID"]);
                 string description = model.Description;
                 int creatorID = user.UserID;
+                int boardID = Convert.ToInt32(Request["boardID"]);
                 DateTime creationDate = System.DateTime.Now;
                 DateTime updatedDate = System.DateTime.Now;
-                _cardRepository.CreateNewCard(listID, description, creatorID, creationDate, updatedDate);
+                _cardRepository.CreateNewCard(listID, description, creatorID, creationDate, updatedDate, boardID);
                 return RedirectToAction("Index", "List", new { boardID = Convert.ToInt32(Request["boardID"]) });
             }
 
