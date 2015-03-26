@@ -71,7 +71,7 @@ namespace Jello.Controllers
             if(ModelState.IsValid)
             {
                 _boardRepository.UpdateBoardByBoardID(boardID, model.Title, model.Description, model.IsPublic);
-                return RedirectToAction("Index", "Board");
+                return RedirectToAction("Index", "List", new { boardid = boardID});
             }
             return View(model);
         }

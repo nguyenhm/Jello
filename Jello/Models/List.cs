@@ -15,6 +15,7 @@ namespace Jello.Models
 
         public int ListID { get; set; }
         public int BoardID { get; set; }
+        public string BoardTitle { get; set; }
         public string Title { get; set; }
         public int ScreenPosition { get; set; }
         public int CreatorID { get; set; }

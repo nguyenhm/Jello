@@ -108,6 +108,7 @@ namespace Jello.Repositories
             {
                 BoardID = (int)dr["BoardID"],
                 ListID = (int)dr["ListID"],
+                BoardTitle = (string)dr["BoardTitle"],
                 Title = dr["Title"] != DBNull.Value ? dr["Title"].ToString() : null,
                 CreationDate = dr["CreationDate"] != DBNull.Value ? (DateTime)dr["CreationDate"] : DateTime.MinValue
             };

@@ -40,6 +40,33 @@ namespace Jello.Repositories
             return boards;
         }
 
+        public Board GetBoardByBoardID(int boardID)
+        {
+            Board board = new Board();
+
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "BoardGetByBoardID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.Add("@BoardID", SqlDbType.Int).Value = boardID;
+
+                connection.Open();
+                using (IDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        board = FillModel(dr);
+                    }
+                }
+            }
+            return board;
+        }
+
         public int CreateNewBoard(string title, string descrition, int creatorID, bool isPublic)
         {
             int boardID;

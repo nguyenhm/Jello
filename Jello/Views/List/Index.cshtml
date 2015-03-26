@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Jello.Models.List>
 
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -8,19 +9,6 @@
     function confirm_delete() {
         return confirm('Are you sure?');
     }
-    //function allowDrop(ev) {
-    //    ev.preventDefault();
-    //}
-
-    //function drag(ev) {
-    //    ev.dataTransfer.setData("text", ev.target.id);
-    //}
-
-    //function drop(ev) {
-    //    ev.preventDefault();
-    //    var data = ev.dataTransfer.getData("text");
-    //    ev.target.appendChild(document.getElementById(data));
-    //}
     $(function () {
         $(".cardWrap").sortable({
             connectWith: "div.cardWrap",
@@ -50,13 +38,19 @@
 </script>
 
 @{
-    ViewBag.Title = "List";
+    Jello.Repositories.BoardRepository boardRepository = new Jello.Repositories.BoardRepository();
+    int boardID = Convert.ToInt32(Request["BoardID"]);
+    var board = boardRepository.GetBoardByBoardID(boardID);
 }
 <hr/>
 
+
+
 <div class="listWrap">
+    <a href='@Url.Action("EditBoard", "Board", new { boardid = @board.BoardID }, null)'>@board.Title</a>
+
     <br />
-    <div class="btn btn-default">@Html.ActionLink("Members", "ViewMembers", "Board", new { boardid = Request["BoardID"] }, null)</div>
+    <div class="btn btn-default"></div>
     <hr />
 
     <div class="listContent">
@@ -83,7 +77,12 @@
     </div>
     <div class="createList">
         <a href='@Url.Action("CreateList", "List")'>
-            <p>+</p>
+            <ul>
+                <li><p>+</p></li>
+                <li>@Html.ActionLink("Members", "ViewMembers", "Board", new { boardid = Request["BoardID"] }, null)</li>
+                <li>@Html.ActionLink("Close Board", "CloseBoard", "Board", new { boardid = @board.BoardID }, new { onclick = "return confirm('Are you sure to close this board');" })</li>
+            </ul>
+            
         </a>
     </div>
 
