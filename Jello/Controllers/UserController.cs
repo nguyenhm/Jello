@@ -82,10 +82,11 @@ namespace Jello.Controllers
             _usersRepository = new UserRepository();
 
             var crypto = new SimpleCrypto.PBKDF2();
-            var encryptPass = crypto.Compute(model.Password);
+            
 
             if (ModelState.IsValid)
             {
+                var encryptPass = crypto.Compute(model.Password);
                 _usersRepository.CreateNewAccount(model.UserName, model.FirstName, model.LastName, model.Email, encryptPass, crypto.Salt);
                 return RedirectToAction("Login", "User");
             }

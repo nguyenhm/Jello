@@ -2,17 +2,17 @@
 
 @{var user = (User)Session["User"];}
 
-@if (user != null) {           
-    <text>
-        Hello, @Html.ActionLink(user.FName +" "+ user.LName, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
+@if (user != null)
+{
+    <li>Hello, <a href="javascript:void(0)">@Html.ActionLink(user.FName + " " + user.LName, "Index", "Board", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!</a></li>
+    <li>
         @using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        @Html.AntiForgeryToken()
+        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
         }
-    </text>
+    </li>
 } else {
-    <ul>
-        <li>@Html.ActionLink("Register", "Register", "User", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <li><a>@Html.ActionLink("Home", "Index", "Home")</a></li>
+    <li><a>@Html.ActionLink("Register", "Register", "User")</a></li>
+    <li><a>@Html.ActionLink("Log in", "Login", "User")</a></li>
 }

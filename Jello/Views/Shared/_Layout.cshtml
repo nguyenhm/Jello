@@ -1,48 +1,76 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-            </div>
-        </footer>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/style")*@
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans|Baumans' rel='stylesheet' type='text/css' />
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+    @*<script src="Scripts/modernizr.js"></script>
+    <script src="Scripts/respond.min.js"></script>*@
+
+    <!-- include extern jQuery file but fall back to local file if extern one fails to load !-->
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">window.jQuery || document.write('<script type="text\/javascript" src="js\/1.7.2.jquery.min"><\/script>')</script>
+
+    <script src="Scripts/jquery.slides.min.js"></script>
+    @*<script src="Scripts/prefixfree.min.js"></script>*@
+</head>
+<body>
+    <header>
+        <h1>@Html.ActionLink("V-Plus Jello", "Index", "Home")</h1>
+        <p>A Collaboration Tool</p>
+        <nav>
+            <ul>
+                @Html.Partial("_LoginPartial")
+            </ul>
+        </nav>
+    </header>
+
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+
+    <footer>
+        <h2 class="hidden">Our footer</h2>
+        <section id="copyright">
+            <h3 class="hidden">Copyright notice</h3>
+            <div class="wrapper">
+                <div class="social">
+                    <a href="javascript:void(0)"><img class="img1" alt="google plus" width="25" /></a>
+                    <a href="javascript:void(0)"><img class="img2" alt="tumblr" width="25" /></a>
+                    <a href="javascript:void(0)"><img class="img3" alt="youtube" width="25" /></a>
+                    <a href="javascript:void(0)"><img class="img4" alt="bebo" width="25" /></a>
+                    <a href="javascript:void(0)"><img class="img5" alt="xing" width="25" /></a>
+                </div>
+                &copy; Copyright 2015 by <a href="http://www.mountunion.edu">V-Plus</a>. All Rights Reserved.
+            </div>
+        </section>
+        <section class="wrapper">
+            <h3 class="hidden">Footer content</h3>
+            <article class="column">
+                <h4>Lorem ipsum</h4>
+                Unterwegs traf es eine Copy. Die Copy warnte das Blindtextchen, da, wo sie herkäme wäre sie zigmal umgeschrieben worden und alles, was von ihrem Ursprung noch übrig wäre, sei das Wort "und" und das Blindtextchen solle umkehren und wieder in sein.
+            </article>
+            <article class="column midlist">
+                <h4>Consectetuer</h4>
+                <ul>
+                    <li><a href="javascript:void(0)">Die Copy warnte das Blindtextchen</a></li>
+                    <li><a href="javascript:void(0)">Unterwegs traf es eine Copy</a></li>
+                    <li><a href="javascript:void(0)">Doch alles Gutzureden konnte</a></li>
+                    <li><a href="javascript:void(0)">Als es die ersten Hügel</a></li>
+                </ul>
+            </article>
+        </section>
+    </footer>
+    @RenderSection("scripts", required: false)
+</body>
 </html>

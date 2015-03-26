@@ -2,17 +2,45 @@
 @{
     ViewBag.Title = "Register";
 }
+<hr/>
+    <div class="loginmain">
+        <div class="login-form">
+            <h1>Member Registration</h1>
+            <div class="loginhead">
+                <img class="img1" alt="" />
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                    <form>
+                        @Html.ValidationMessageFor(m => m.UserName)
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "text", @placeholder = "USER NAME" })
+                        
+                        @Html.ValidationMessageFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "text", @placeholder = "EMAIL" })
+                        
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "text", @placeholder = "FIRST NAME" })
+                        
+                        @Html.ValidationMessageFor(m => m.LastName)
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "text", @placeholder = "LAST NAME" })
+                        
+                        @Html.ValidationMessageFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password, new { @class = "text", @placeholder = "PASSWORD" })
+                        
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "text", @placeholder = "CONFIRM PASSWORD" })
+                        
+                        <div class="submit">
+                            <input type="submit" class="btn btn-block" value="Register" />
+                        </div>
+                    </form>
+                }
+        </div>
+    </div>
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <fieldset>
+    @*<fieldset>
         <legend>Registration Form</legend>
         <ol>
             <li>
@@ -47,9 +75,5 @@
             </li>
         </ol>
         <input type="submit" class="btn btn-block" value="Register" />
-    </fieldset>
-}
+    </fieldset>*@
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

@@ -4,50 +4,36 @@
     ViewBag.Title = "Log in";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title</h1>
-</hgroup>
+<hr/>
 
-<section id="loginForm">
-    @if (!ViewContext.ViewData.ModelState.IsValid && ViewContext.ViewData.ModelState["Error"] != null)
-    {
-        <h4> @String.Join(",", ViewContext.ViewData.ModelState["Error"].Errors.Select(x => x.ErrorMessage).ToList())</h4>
-    }
-    
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <fieldset>
-            <legend>Log in Form</legend>
-            <ol>
-                <li>
-                    @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email)
+<div class="loginmain">
+    <div class="login-form">
+        <h1>Member Login</h1>
+        <div class="loginhead">
+            <img class="img1" alt="" />
+        </div>
+        @if (!ViewContext.ViewData.ModelState.IsValid && ViewContext.ViewData.ModelState["Error"] != null)
+        {
+            <h4> @String.Join(",", ViewContext.ViewData.ModelState["Error"].Errors.Select(x => x.ErrorMessage).ToList())</h4>
+        }
+
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+                <form>
                     @Html.ValidationMessageFor(m => m.Email)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Password)
-                    @Html.PasswordFor(m => m.Password)
+                    @Html.TextBoxFor(m => m.Email, new { @class="text", @placeholder="EMAIL"})
+                    
                     @Html.ValidationMessageFor(m => m.Password)
-                </li>
-                <li>
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-                </li>
-            </ol>
-            <input type="submit" value="Log in" />
-        </fieldset>
-        <p>
-            @Html.ActionLink("Register", "Register") if you don't have an account.
-        </p>
-    }
-</section>
+                    @Html.PasswordFor(m => m.Password, new { @class="text", @placeholder = "PASSWORD" })
+                    
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                    <div class="submit">
+                        <input type="submit" onclick="myFunction()" value="LOGIN">
+                    </div>
+                    <p><a> @Html.ActionLink("Register", "Register", "User")</a></p>
+                    <p><a href="#">Forgot Password ?</a></p>
+                </form>
+        }
+    </div>
+</div>

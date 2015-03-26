@@ -3,17 +3,50 @@
 @{
     ViewBag.Title = "Board";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title</h1>
-</hgroup>
-
-<div class="btn btn-default">@Html.ActionLink("Create Board", "CreateBoard", "Board")</div>
-
 <hr />
 
-<div class="row">
+<div class="createBoardWrap">
+    <h1>Create New Board:</h1>
+    <a href='@Url.Action("CreateBoard", "Board")'>
+        <div class="createBoardContent">
+            <p>+</p>
+        </div>
+    </a>
+</div>
+
+<br/>
+@{
+    int i = 0;
+}
+<div class="createBoardWrap">
+    <h1>Your Current Board:</h1>
     @foreach (var item in Model)
+    {
+        string div = "boardContent" + i.ToString();
+    <a href ='@Url.Action("Index", "List", new { boardid = @item.BoardID }, null)'>
+        <div class="boardContent", id="@div">
+            <ul>
+                <li class="title">@item.Title</li>
+                <li class="subtitle">@item.Description</li>
+                <li class="subtitle">By: @item.FullName</li>
+            </ul>
+        </div>
+    </a>
+        if(i < 4)
+        {
+            i++;
+        }
+        else if (i >= 4)
+        {
+            i = 0;
+        }
+        
+    }
+</div>
+
+
+<div class="row">
+    @*@foreach (var item in Model)
     {
         <div class="col-md-3 project-grid-item">
             <h2>@item.Title</h2>
@@ -30,7 +63,7 @@
                     </div>
                 </div>
             </p>
-        </div><!-- /.span4 -->
+        </div> /.span4 
         <div class="col-md-1"></div>
-    }
+    }*@
 </div>

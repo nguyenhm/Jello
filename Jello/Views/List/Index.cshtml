@@ -1,40 +1,87 @@
 ﻿@model IEnumerable<Jello.Models.List>
 
+<script type="text/javascript">
+    function confirm_delete() {
+        return confirm('Are you sure?');
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+
 @{
     ViewBag.Title = "List";
 }
+<hr/>
 
-<hgroup class="title">
-    <h1>@ViewBag.Title</h1>
-</hgroup>
 
-<div class="btn btn-default">@Html.ActionLink("Create List", "CreateList", "List")</div>
 
-<hr />
+<div class="listWrap">
+    <br />
+    <div class="btn btn-default">@Html.ActionLink("Members", "ViewMembers", "Board", new { boardid = Request["BoardID"] }, null)</div>
+    <hr />
 
-@{
-    ViewBag.Title = ViewBag.BoardName;
-}
+    <div class="listContent">
+        @foreach(var item in Model)
+        {
+            <div class="list">
+                <a class="close" , onclick="return confirm_delete()" href='@Url.Action("ArchiveList", "List", new { boardID = @item.BoardID, listID = item.ListID })'>x</a>
+                <div class="listTitle">                  
+                    <p>@item.Title</p>
+                </div>
+                <div class="cardWrap" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    @foreach (var card in item.CardList)
+                    {
+                        <div class="cardTitle" draggable="true" ondragstart="drag(event)">
+                            @card.Description
+                        </div>
+                    }
+                </div>
+                <div class="addCardLink">
+                    <a>@Html.ActionLink("Add Card", "CreateCard", "Card", new { listid = @item.ListID, boardID = @item.BoardID }, null)</a>
+                </div>   
+            </div>
+        }
+    </div>
+    <div class="createList">
+        <a href='@Url.Action("CreateList", "List")'>
+            <p>+</p>
+        </a>
+    </div>
 
-<br />
-<h2> @ViewBag.BoardName </h2>
-<br />
-<div class="btn btn-default">@Html.ActionLink("Members", "ViewMembers", "Board", new { boardid = Request["BoardID"] }, null)</div>
-<hr />
+    <div style="clear:both;"></div>
+</div>
 
-<table>
+<div style="width: 1200px;
+    margin: 10px auto;">
+    <a href='@Url.Action("Index", "Board")'>Back To Board</a>
+</div>
+
+
+
+@*<table>
     <tr>
         <td>
             <button class="btn btn-group btn-block" data-toggle="modal" data-target="#myModal">
                 Create List
             </button>
-            @*@{
+            @{
                 var newList = new Jello.Models.CreateListModel();
                 newList.BoardID = Convert.ToInt32(Request["boardID"]);
                 int a = newList.BoardID;
                 Session["BoardID"] = a;
-            }*@
-            @*@Html.Partial("CreateList", newList)*@
+            }
+            @Html.Partial("CreateList", newList)
         </td>
     </tr>
 </table>
@@ -71,12 +118,11 @@
                     {
                         <li class="project-grid-item" data-toggle="modal" data-target="#@card.CardID" style="width: 150px" cardid="@card.CardID">
                             @card.Description
-                            @*@if (@card.WorkerName != null)
+                            @if (@card.WorkerName != null)
                             { <hr /> }
-                            <span style="color:rgb(158, 98, 98); float:right;"> @card.WorkerName </span>  <br />*@
+                            <span style="color:rgb(158, 98, 98); float:right;"> @card.WorkerName </span>  <br />
                         </li>
-                        @*@Html.Partial("~/Views/Card/_EditCard.cshtml", card)*@
-
+                        @Html.Partial("~/Views/Card/_EditCard.cshtml", card)
                     }
                 </ul>
             </td>
@@ -90,8 +136,8 @@
 
 }
 
-<div style="clear:both;"></div>
+<div style="clear:both;"></div>*@
 
-<div>
-    @Html.ActionLink("Back to Board", "Index", "Board")
-</div>
+
+
+<br/>
