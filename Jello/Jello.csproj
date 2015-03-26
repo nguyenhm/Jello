@@ -273,6 +273,7 @@
     <None Include="Properties\PublishProfiles\kuvip.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="img\1.jpg" />
+    <Content Include="img\board.png" />
     <Content Include="img\DucLe.jpg" />
     <Content Include="img\HoangNguyen.jpg" />
     <Content Include="img\icon10.png" />

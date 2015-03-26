@@ -4,10 +4,41 @@
     ViewBag.Title = "CreateBoard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br /><br />
-<h2 style="text-align:center;">Create Board</h2>
+<hr/>
 
-@using (Html.BeginForm())
+<div class="loginmain">
+    <div class="login-form">
+        <h1>Create Board</h1>
+        <div class="creatBoardHead">
+            <img class="imgBoard" alt="" style="width:150px"/>
+        </div>
+        @if (!ViewContext.ViewData.ModelState.IsValid && ViewContext.ViewData.ModelState["Error"] != null)
+        {
+            <h4> @String.Join(",", ViewContext.ViewData.ModelState["Error"].Errors.Select(x => x.ErrorMessage).ToList())</h4>
+        }
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+                <form>
+                    @Html.ValidationMessageFor(model => model.Title)
+                    @Html.TextBoxFor(model => model.Title, new { @placeholder = "TITLE" })
+                
+                    @Html.ValidationMessageFor(model => model.Description)
+                    @Html.TextBoxFor(model => model.Description, new { @placeholder = "DESCRIPTION" })
+
+                
+                    @Html.EditorFor(model => model.IsPublic) Public
+
+                    <div class="submit">
+                        <input type="submit" value="Create">
+                    </div>
+                </form>
+        }
+    </div>
+</div>
+
+@*@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -51,4 +82,4 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
