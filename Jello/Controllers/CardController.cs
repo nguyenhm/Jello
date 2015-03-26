@@ -47,5 +47,12 @@ namespace Jello.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult UpdateListID(int finalListID, int cardID)
+        {
+            _cardRepository = new CardRepository();
+            _cardRepository.UpdateListID(finalListID, cardID);
+            return Content("");
+        }
     }
 }

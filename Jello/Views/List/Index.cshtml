@@ -1,30 +1,58 @@
 ﻿@model IEnumerable<Jello.Models.List>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 <script type="text/javascript">
     function confirm_delete() {
         return confirm('Are you sure?');
     }
-    function allowDrop(ev) {
-        ev.preventDefault();
+    //function allowDrop(ev) {
+    //    ev.preventDefault();
+    //}
+
+    //function drag(ev) {
+    //    ev.dataTransfer.setData("text", ev.target.id);
+    //}
+
+    //function drop(ev) {
+    //    ev.preventDefault();
+    //    var data = ev.dataTransfer.getData("text");
+    //    ev.target.appendChild(document.getElementById(data));
+    //}
+    $(function () {
+        $(".cardWrap").sortable({
+            connectWith: "div.cardWrap",
+            receive: function (event, ui) {
+                finalListID = $(this).closest("div.cardWrap").attr('listID');
+                cardID = ui.item.attr('cardID');
+                UpdateListID(finalListID, cardID);
+            }
+        })
+    });
+    function UpdateListID(finalListID, cardID) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateListID", "Card")',
+            data: JSON.stringify({ "finalListID": finalListID, "cardID": cardID }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (data) {
+                alert("here" + data.d.toString());
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Server Error. Please try again!");
+            }
+        })
     }
 
-    function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
-
-    function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
-    }
 </script>
 
 @{
     ViewBag.Title = "List";
 }
 <hr/>
-
-
 
 <div class="listWrap">
     <br />
@@ -39,11 +67,11 @@
                 <div class="listTitle">                  
                     <p>@item.Title</p>
                 </div>
-                <div class="cardWrap" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="cardWrap" id="sortable" listid="@item.ListID">
                     @foreach (var card in item.CardList)
                     {
-                        <div class="cardTitle" draggable="true" ondragstart="drag(event)">
-                            @card.Description
+                        <div class="cardTitle" id="@card.CardID" cardid="@card.CardID">
+                            <p>@card.Description</p>
                         </div>
                     }
                 </div>

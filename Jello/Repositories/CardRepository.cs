@@ -62,6 +62,24 @@ namespace Jello.Repositories
             }
         }
 
+        public void UpdateListID(int finalListID, int cardID)
+        {
+            using (var connection = new SqlConnection(_connStr))
+            {
+                var command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "CardListIDUpdateByCardID",
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                command.Parameters.AddWithValue("ListID", finalListID);
+                command.Parameters.AddWithValue("CardID", cardID);                
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         public Card FillModel(IDataReader dr)
         {
             var card = new Card 

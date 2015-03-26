@@ -348,6 +348,7 @@ text-align: center;
 
 .boardContent
 {
+    padding-top: 20px;
     display: inline-block;
     vertical-align: top;
     height: 160px;
@@ -518,7 +519,7 @@ text-align: center;
     margin-bottom: 10px;
 }
 
-.cardWrap
+#sortable
 {
     min-width:100px;
     min-height:200px;
